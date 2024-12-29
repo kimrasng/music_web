@@ -39,11 +39,15 @@ const MusicPlayer = () => {
       setCurrentTime(audio.currentTime)
       setDuration(audio.duration)
     }
-
+  
     const handleSongEnd = () => {
-      playNext()
+      if (songList.length > 0) {
+        const nextIndex = (currentIndex + 1) % songList.length
+        setCurrentIndex(nextIndex)
+        setCurrentSong(songList[nextIndex])
+      }
     }
-
+  
     audio.addEventListener('timeupdate', updateProgress)
     audio.addEventListener('ended', handleSongEnd)
     
@@ -51,7 +55,7 @@ const MusicPlayer = () => {
       audio.removeEventListener('timeupdate', updateProgress)
       audio.removeEventListener('ended', handleSongEnd)
     }
-  }, [audio])
+  }, [audio, currentIndex, songList])
 
   const fetchSongs = async () => {
     const res = await fetch(`https://api.kimrasng.me/api/music-server/songs`)
