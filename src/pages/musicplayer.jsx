@@ -102,7 +102,7 @@ const MusicPlayer = () => {
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
-    const progressPercent = duration ? (currentTime / duration) * 100 : 0
+    const progressPercent = duration ? (currentTime / duration) * 100 : 1
 
     return (
         <div className="music-player">
@@ -135,16 +135,21 @@ const MusicPlayer = () => {
                                 </div>
 
                                 <div className="progress-container">
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max={duration || 100}
-                                        value={currentTime}
-                                        onChange={handleProgressChange}
-                                        className="progress-bar"
-                                        style={{ '--progress-percent': `${progressPercent}%` }}
-                                        disabled={!currentSong}
+                                    <div
+                                        className="progress-bar-background"
+                                        onClick={(e) => {
+                                            const rect = e.target.getBoundingClientRect()
+                                            const offsetX = e.clientX - rect.left
+                                            const newTime = (offsetX / rect.width) * duration
+                                            audio.currentTime = newTime
+                                            setCurrentTime(newTime)
+                                        }}
+                                    >
+                                    <div
+                                        className="progress-bar-foreground"
+                                        style={{ width: `${progressPercent}%` }}
                                     />
+                                    </div>
                                     <div className="time-display">
                                         <span>{formatTime(currentTime)}</span>
                                         <span>{formatTime(duration)}</span>
