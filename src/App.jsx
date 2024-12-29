@@ -8,6 +8,9 @@ function App() {
 
   return (
     <>
+      <header>
+        <a href='/'><button></button></a>
+      </header>
       <a href='/musicplayer'><button>MUSIC-PLAYER</button></a>
     </>
   )
