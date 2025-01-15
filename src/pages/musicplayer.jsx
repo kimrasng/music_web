@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react'
 import './musicplayer.css'
 
+const serverUrl = 'https://api.kimrasng.me/api/music-server'
+
 const MusicPlayer = () => {
     const [songList, setSongList] = useState([])
     const [currentSong, setCurrentSong] = useState(null)
@@ -17,7 +19,7 @@ const MusicPlayer = () => {
 
     useEffect(() => {
         if (currentSong) {
-            audio.src = `https://api.kimrasng.me/api/music-server/music/${currentSong.filename}`
+            audio.src = `${serverUrl}/music/${currentSong.filename}`
             audio.play()
             setIsPlaying(true)
         }
@@ -58,7 +60,7 @@ const MusicPlayer = () => {
     }, [audio, currentIndex, songList])
 
     const fetchSongs = async () => {
-        const res = await fetch(`https://api.kimrasng.me/api/music-server/songs`)
+        const res = await fetch(`${serverUrl}/songs`)
         const data = await res.json()
         setSongList(data.songs)
     }
@@ -109,7 +111,7 @@ const MusicPlayer = () => {
             {currentSong && (
                 <div
                     className="background-blur"
-                    style={{ backgroundImage: `url(https://api.kimrasng.me/api/music-server/img/song/${currentSong.image_filename})` }}
+                    style={{ backgroundImage: `url(${serverUrl}/img/song/${currentSong.image_filename})` }}
                 />
             )}
             <div className="player-container">
@@ -118,7 +120,7 @@ const MusicPlayer = () => {
                         <div className="song-details">
                             {currentSong ? (
                                 <img
-                                    src={`https://api.kimrasng.me/api/music-server/img/song/${currentSong.image_filename}`}
+                                    src={`${serverUrl}/img/song/${currentSong.image_filename}`}
                                     alt={currentSong.title}
                                     className="song-image"
                                 />
@@ -180,7 +182,7 @@ const MusicPlayer = () => {
                                     className={`song-item ${currentSong?.id === song.id ? 'active' : ''}`}
                                 >
                                     <img
-                                        src={`https://api.kimrasng.me/api/music-server/img/song/${song.image_filename}`}
+                                        src={`${serverUrl}/img/song/${song.image_filename}`}
                                         alt={song.title}
                                     />
                                     <div className="item-info">
