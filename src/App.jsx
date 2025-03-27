@@ -20,7 +20,7 @@ const App = () => {
 
     useEffect(() => {
         if (currentSong) {
-            audio.src = `${storageUrl}/song/${currentSong.filename}`
+            audio.src = `${storageUrl}/songs/${currentSong.filename}`
             audio.play()
             setIsPlaying(true)
         }
