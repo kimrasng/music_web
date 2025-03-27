@@ -20,7 +20,7 @@ const App = () => {
 
     useEffect(() => {
         if (currentSong) {
-            audio.src = `${storageUrl}/music/${currentSong.filename}`
+            audio.src = `${storageUrl}/song/${currentSong.filename}`
             audio.play()
             setIsPlaying(true)
         }
@@ -112,7 +112,7 @@ const App = () => {
             {currentSong && (
                 <div
                     className="background-blur"
-                    style={{ backgroundImage: `url(${storageUrl}/img/song/${currentSong.image_filename})` }}
+                    style={{ backgroundImage: `url(${storageUrl}/img/${currentSong.image_filename})` }}
                 />
             )}
             <div className="player-container">
@@ -121,7 +121,7 @@ const App = () => {
                         <div className="song-details">
                             {currentSong ? (
                                 <img
-                                    src={`${storageUrl}/img/song/${currentSong.image_filename}`}
+                                    src={`${storageUrl}/img/${currentSong.image_filename}`}
                                     alt={currentSong.title}
                                     className="song-image"
                                 />
@@ -183,7 +183,7 @@ const App = () => {
                                     className={`song-item ${currentSong?.id === song.id ? 'active' : ''}`}
                                 >
                                     <img
-                                        src={`${storageUrl}/img/song/${song.image_filename}`}
+                                        src={`${storageUrl}/img/${song.image_filename}`}
                                         alt={song.title}
                                     />
                                     <div className="item-info">
