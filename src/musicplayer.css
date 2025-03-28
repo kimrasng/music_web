@@ -77,7 +77,7 @@
 }
 
 .song-info {
-    width: 100%;
+    width: 80%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
@@ -313,6 +313,6 @@
 
 @media (max-height: 600px) {
     .song-image {
-        max-width: 200px; /* 화면 높이가 작아지면 이미지 크기 더 축소 */
+        max-width: 200px;
     }
 }
