@@ -105,7 +105,7 @@ const App = () => {
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
-    const progressPercent = duration ? (currentTime / duration) * 100 : 1
+    const progressPercent = duration ? (currentTime / duration) * 100 : 0
 
     return (
         <div className="music-player">
@@ -126,7 +126,7 @@ const App = () => {
                                     className="song-image"
                                 />
                             ) : (
-                                <div className="empty-image">
+                                <div className="song-image" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Music size={64} color="rgba(255,255,255,0.5)" />
                                 </div>
                             )}
