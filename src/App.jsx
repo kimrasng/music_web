@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react'
 import './musicplayer.css'
 
-const serverUrl = 'https://api.kimrasng.me/api/music-server'
-const storageUrl = 'https://storage.kimrasng.me/music_server'
+const serverUrl = 'https://api.kimrasng.kr/api/music-server'
+const storageUrl = 'https://storage.kimrasng.kr/music_server'
 
 const App = () => {
     const [songList, setSongList] = useState([])
