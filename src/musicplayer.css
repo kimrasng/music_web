@@ -56,13 +56,15 @@
 
 .song-image {
     width: 100%;
-    max-width: 500px;
+    max-width: 300px;
+    height: auto;
     aspect-ratio: 1;
     border-radius: 1rem;
     box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
-    object-fit: cover;
+    object-fit: contain; /* 비율을 유지하며 부모 요소에 맞게 조정 */
 }
+
 
 .empty-image {
     width: 100%;
@@ -261,10 +263,16 @@
     }
 
     .song-image {
+        width: 100%;
         max-width: 100px;
-        aspect-ratio: 1;
-        margin-bottom: 0;
+        height: auto; /* 높이를 자동으로 설정 */
+        aspect-ratio: 1; /* 비율 유지 */
+        border-radius: 1rem;
+        box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.5);
+        margin-bottom: 2rem;
+        object-fit: contain; /* 비율을 유지하며 부모 요소에 맞게 조정 */
     }
+    
 
     .song-info {
         max-width: none;
