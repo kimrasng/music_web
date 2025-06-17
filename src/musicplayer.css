@@ -56,13 +56,13 @@
 
 .song-image {
     width: 100%;
-    max-width: 300px;
+    max-width: 40vh;
     height: auto;
     aspect-ratio: 1;
     border-radius: 1rem;
     box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
-    object-fit: contain; /* 비율을 유지하며 부모 요소에 맞게 조정 */
+    object-fit: contain;
 }
 
 
@@ -84,7 +84,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.5vh;
 }
 
 .song-info h2 {
@@ -265,12 +265,12 @@
     .song-image {
         width: 100%;
         max-width: 100px;
-        height: auto; /* 높이를 자동으로 설정 */
-        aspect-ratio: 1; /* 비율 유지 */
+        height: auto; 
+        aspect-ratio: 1;
         border-radius: 1rem;
         box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.5);
         margin-bottom: 2rem;
-        object-fit: contain; /* 비율을 유지하며 부모 요소에 맞게 조정 */
+        object-fit: contain;
     }
     
 
@@ -306,11 +306,5 @@
         display: flex;
         flex-direction: column;
         overflow: auto;
-    }
-}
-
-@media (max-height: 600px) {
-    .song-image {
-        max-width: 200px;
     }
 }
