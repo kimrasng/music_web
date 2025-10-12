@@ -187,7 +187,7 @@ const App = () => {
                                         alt={song.foreign_title}
                                     />
                                     <div className="item-info">
-                                        <h3>{song.title}</h3>
+                                        <h3>{song.foreign_title}</h3>
                                         <p>{song.artist_name}</p>
                                     </div>
                                 </div>
