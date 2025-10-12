@@ -122,7 +122,7 @@ const App = () => {
                             {currentSong ? (
                                 <img
                                     src={`${storageUrl}/img/${currentSong.image_filename}`}
-                                    alt={currentSong.title}
+                                    alt={currentSong.foreign_title}
                                     className="song-image"
                                 />
                             ) : (
@@ -133,7 +133,7 @@ const App = () => {
 
                             <div className="song-info">
                                 <div className="text-center">
-                                    <h2>{currentSong?.title || "재생 중인 곡 없음"}</h2>
+                                    <h2>{currentSong?.foreign_title || "재생 중인 곡 없음"}</h2>
                                     <p>{currentSong?.artist_name || "음악을 선택해주세요"}</p>
                                 </div>
 
@@ -184,7 +184,7 @@ const App = () => {
                                 >
                                     <img
                                         src={`${storageUrl}/img/${song.image_filename}`}
-                                        alt={song.title}
+                                        alt={song.foreign_title}
                                     />
                                     <div className="item-info">
                                         <h3>{song.title}</h3>
