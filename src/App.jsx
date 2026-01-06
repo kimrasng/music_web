@@ -3,7 +3,6 @@ import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react'
 import './musicplayer.css'
 
 const serverUrl = 'https://api.kimrasng.kr/api/music-server'
-const storageUrl = 'https://storage.kimrasng.kr/music_server'
 
 const App = () => {
     const [songList, setSongList] = useState([])
@@ -20,7 +19,7 @@ const App = () => {
 
     useEffect(() => {
         if (currentSong) {
-            audio.src = `${storageUrl}/songs/${currentSong.filename}`
+            audio.src = currentSong.filename
             audio.play()
             setIsPlaying(true)
         }
@@ -112,7 +111,7 @@ const App = () => {
             {currentSong && (
                 <div
                     className="background-blur"
-                    style={{ backgroundImage: `url(${storageUrl}/img/${currentSong.image_filename})` }}
+                    style={{ backgroundImage: `url(${currentSong.image_filename})`}}
                 />
             )}
             <div className="player-container">
@@ -121,7 +120,7 @@ const App = () => {
                         <div className="song-details">
                             {currentSong ? (
                                 <img
-                                    src={`${storageUrl}/img/${currentSong.image_filename}`}
+                                    src={currentSong.image_filename}
                                     alt={currentSong.foreign_title}
                                     className="song-image"
                                 />
@@ -183,7 +182,7 @@ const App = () => {
                                     className={`song-item ${currentSong?.id === song.id ? 'active' : ''}`}
                                 >
                                     <img
-                                        src={`${storageUrl}/img/${song.image_filename}`}
+                                        src={song.image_filename}
                                         alt={song.foreign_title}
                                     />
                                     <div className="item-info">
