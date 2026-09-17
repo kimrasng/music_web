@@ -1,8 +1,26 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react'
 import './musicplayer.css'
 
-const serverUrl = 'https://api.kimrasng.kr/api/music-server'
+const apiBaseUrl = 'https://api.kimrasng.kr/api'
+const assetBaseUrl = 'https://api.kimrasng.kr/'
+
+const resolveMediaUrl = (url) => {
+    if (!url) return ''
+
+    try {
+        return new URL(url, assetBaseUrl).href
+    } catch {
+        return url
+    }
+}
+
+const normalizeSong = (song) => ({
+    ...song,
+    display_title: song.title || song.english_title || song.korean_title || '제목 없음',
+    filename: resolveMediaUrl(song.song_url || song.filename),
+    image_filename: resolveMediaUrl(song.image_url || song.image_filename),
+})
 
 const App = () => {
     const [songList, setSongList] = useState([])
@@ -26,7 +44,7 @@ const App = () => {
         return () => {
             audio.pause()
         }
-    }, [currentSong])
+    }, [audio, currentSong])
 
     useEffect(() => {
         if (isPlaying && currentSong) {
@@ -34,7 +52,7 @@ const App = () => {
         } else {
             audio.pause()
         }
-    }, [isPlaying])
+    }, [audio, currentSong, isPlaying])
 
     useEffect(() => {
         const updateProgress = () => {
@@ -60,9 +78,14 @@ const App = () => {
     }, [audio, currentIndex, songList])
 
     const fetchSongs = async () => {
-        const res = await fetch(`${serverUrl}/songs`)
+        const res = await fetch(`${apiBaseUrl}/songs`)
+        if (!res.ok) {
+            throw new Error(`Failed to fetch songs: ${res.status}`)
+        }
+
         const data = await res.json()
-        setSongList(data.songs)
+        const songs = Array.isArray(data) ? data : data.songs || []
+        setSongList(songs.map(normalizeSong))
     }
 
     const playSong = (song, index) => {
@@ -92,12 +115,6 @@ const App = () => {
         }
     }
 
-    const handleProgressChange = (e) => {
-        const newTime = e.target.value
-        audio.currentTime = newTime
-        setCurrentTime(newTime)
-    }
-
     const formatTime = (seconds) => {
         const mins = Math.floor(seconds / 60)
         const secs = Math.floor(seconds % 60)
@@ -121,7 +138,7 @@ const App = () => {
                             {currentSong ? (
                                 <img
                                     src={currentSong.image_filename}
-                                    alt={currentSong.foreign_title}
+                                    alt={currentSong.display_title}
                                     className="song-image"
                                 />
                             ) : (
@@ -132,7 +149,7 @@ const App = () => {
 
                             <div className="song-info">
                                 <div className="text-center">
-                                    <h2>{currentSong?.foreign_title || "재생 중인 곡 없음"}</h2>
+                                    <h2>{currentSong?.display_title || "재생 중인 곡 없음"}</h2>
                                     <p>{currentSong?.artist_name || "음악을 선택해주세요"}</p>
                                 </div>
 
@@ -183,10 +200,10 @@ const App = () => {
                                 >
                                     <img
                                         src={song.image_filename}
-                                        alt={song.foreign_title}
+                                        alt={song.display_title}
                                     />
                                     <div className="item-info">
-                                        <h3>{song.foreign_title}</h3>
+                                        <h3>{song.display_title}</h3>
                                         <p>{song.artist_name}</p>
                                     </div>
                                 </div>
