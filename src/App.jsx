@@ -3,13 +3,14 @@ import { Play, Pause, SkipForward, SkipBack, Music } from 'lucide-react'
 import './musicplayer.css'
 
 const apiBaseUrl = 'https://api.kimrasng.kr/api'
-const assetBaseUrl = 'https://api.kimrasng.kr/'
+const imageBaseUrl = 'https://storage.kimrasng.kr/music_server/img/'
+const songBaseUrl = 'https://storage.kimrasng.kr/music_server/songs/'
 
-const resolveMediaUrl = (url) => {
+const resolveMediaUrl = (url, baseUrl) => {
     if (!url) return ''
 
     try {
-        return new URL(url, assetBaseUrl).href
+        return new URL(url, baseUrl).href
     } catch {
         return url
     }
@@ -18,8 +19,8 @@ const resolveMediaUrl = (url) => {
 const normalizeSong = (song) => ({
     ...song,
     display_title: song.title || song.english_title || song.korean_title || '제목 없음',
-    filename: resolveMediaUrl(song.song_url || song.filename),
-    image_filename: resolveMediaUrl(song.image_url || song.image_filename),
+    filename: resolveMediaUrl(song.song_url || song.filename, songBaseUrl),
+    image_filename: resolveMediaUrl(song.image_url || song.image_filename, imageBaseUrl),
 })
 
 const App = () => {
